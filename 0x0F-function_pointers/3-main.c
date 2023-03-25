@@ -1,60 +1,38 @@
-#include "3-calc.h"
+#include "function_pointers.h"
+#include <stdlib.h>
 #include <stdio.h>
-#include <string.h> /*for atoi*/
-#include <stdlib.h> /*for exit*/
-
+#include "3-calc.h"
 /**
- * main - Program Entry
- *
- * Description: Program that takes 4 arguments where 2 are
- *              int variables plus an operator to perform
- *              a function between the two numbers
- *
- *              Usage: ./calc num1 operator num2
- *                         |     |       |     |_ argv[3]
- *                         |     |       |_ argv[2]
- *                         |     |_ argv[1]
- *                         |_ argv[0]
- *
- * @argc: argument counter
- * @argv: argument vector
- *
- * Return: 0-on success
+	 * main - Prints the result of simple operations.
+	 * @argc: The number of arguments supplied to the program.
+	 * @argv: An array of pointers to the arguments.
+	 *
+	 * Return: Always 0.
 */
-int main(int argc, char *argv[])
-{
-	int num1, num2;
-	char *operator;
-
-	/* Error if arguments are not 4 with the executable */
-	if (argc != 4)
+	int main(int __attribute__((__unused__)) argc, char *argv[])
 	{
-		printf("Error\n");
-		exit(98);
-	}
+		int num1, num2;
+		char *op;
 
-	num1 = atoi(argv[1]); /*if argument is string convert to number*/
-	num2 = atoi(argv[3]); /* as stated above */
-	operator = argv[2];
 
-	/* Error if operator is not null or a 2d array '\*' */
-	if (get_op_func(operator) == NULL || operator[1] != '\0')
-	{
-		printf("Error\n");
-		exit(99);
-	}
+		if (argc != 4)
+		{
+			printf("Error\n");
+			exit(98);
+		}
 
-	/* Error if user tries to divide / (47) or % (37) by 0*/
-	if ((*operator == 47 || *operator == 37) && num2 == 0)
-	{
-		printf("Error\n");
-		exit(100);
-	}
 
-	printf("%d\n", get_op_func(operator)(num1, num2));
+		num1 = atoi(argv[1]);
+		op = argv[2];
+		num2 = atoi(argv[3]);
 
-	return (0);
-}
+
+		if (get_op_func(op) == NULL || op[1] != '\0')
+		{
+			printf("Error\n");
+			exit(99);
+		}
+
 
 		if ((*op == '/' && num2 == 0) ||
 		    (*op == '%' && num2 == 0))
